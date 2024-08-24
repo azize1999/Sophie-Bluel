@@ -55,8 +55,8 @@ getCategories();
 
 
 
-function setFilter(data){
+function setFilter(data) {
     const div = document.createElement("div");
-div .innerHTML = `${data.name}`;
-document.querySelector(".div-ontainer").append(div); 
+    div.innerHTML = `${data.name}`;
+    document.querySelector(".div-container").append(div); 
 }
