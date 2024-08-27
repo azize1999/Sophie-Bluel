@@ -23,6 +23,12 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+a {
+	color: black;
+}
+a :visited{
+    color: black;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -30,6 +36,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
+	
 }
 ol, ul {
 	list-style: none;
@@ -187,7 +195,38 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+/*login code*/
+#login {
+	width: 50%;
+margin: auto;
+}
+#login > * {
+	text-align: center;
 
+}
+#login h2{
+	margin-bottom: 20px;
+}
+#login form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login label {
+	margin: 2em 0 1em 0;
+}
+#login textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;

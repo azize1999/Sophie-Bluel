@@ -44,7 +44,7 @@ async function getCategories() {
             throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json();
-        console.log(json);
+       
         for (let i = 0; i < json.length; i++) {
             setFilter(json[i]);
         }
