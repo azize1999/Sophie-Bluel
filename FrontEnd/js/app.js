@@ -63,5 +63,6 @@ function setFilter(data) {
     div.innerHTML = `${data.name}`;
     document.querySelector(".div-container").append(div);
 }
-document.querySelector(".tous").addEventListener("click", () => getWorks()); //on peut utiliser function au lieu des fleches
+   document.querySelector(".tous").addEventListener("click", () => getWorks()); //<--
+  //  document.getElementById('login').addEventListener("click", () => getWorks());//<--
 //demander le mentor pourquoi le bouton tous ne fonctionne pas !!
