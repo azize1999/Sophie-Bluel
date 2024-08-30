@@ -29,7 +29,7 @@ async function handleLoginSubmit(event) {
         document.querySelector("form").prepend(errorBox);
     }
 
-        
+        else{
     let result = await response.json();
     console.log("Email:", user.email);
     console.log("Mot de Passe:", user.password);
@@ -37,4 +37,5 @@ async function handleLoginSubmit(event) {
          sessionStorage.setItem("authToken", token);
          console.log("token");
          window.location.href = "index.html "
+        }
 }

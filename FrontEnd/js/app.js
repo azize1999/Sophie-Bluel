@@ -64,5 +64,15 @@ function setFilter(data) {
     document.querySelector(".div-container").append(div);
 }
    document.querySelector(".tous").addEventListener("click", () => getWorks()); //<--
-  //  document.getElementById('login').addEventListener("click", () => getWorks());//<--
 //demander le mentor pourquoi le bouton tous ne fonctionne pas !!
+
+function displayAdminMode(){
+  if (sessionStorage.authtoken){
+    console.log("ok");
+const editBanner = document.createElement("div");
+editBanner.className = "edit";
+editBanner.innerHTML = '<div class="edit"><p><i class="fa-regular fa-pen-to-square"></i>Mode édition</p></div>';
+    document.body.prepend(editBanner);
+  }
+}
+displayAdminMode();
