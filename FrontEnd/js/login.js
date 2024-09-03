@@ -2,7 +2,7 @@ const loginApi ='http://localhost:5678/api/users/login';
 
 document
 .getElementById('loginForm')
-.addEventListener('submit',  handleSubmit());
+.addEventListener('submit', e => handleLoginSubmit(e));
 
 
 async function handleLoginSubmit(event) {
@@ -21,21 +21,17 @@ async function handleLoginSubmit(event) {
         body: JSON.stringify(user),
     });
 
-    console.log(response);
-    if(response.status != 200){
+    if(response.status != 200) {
         const errorBox = document.createElement('div');
         errorBox.className = "error-login";
         errorBox.innerHTML = "Il y a eu une erreur";
         document.querySelector("form").prepend(errorBox);
     }
 
-        else{
+    else {
     let result = await response.json();
-    console.log("Email:", user.email);
-    console.log("Mot de Passe:", user.password);
     const token = result.token;
          sessionStorage.setItem("authToken", token);
-         console.log("token");
          window.location.href = "index.html "
-        }
+    }
 }
