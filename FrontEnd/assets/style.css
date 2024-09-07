@@ -273,7 +273,7 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-.add-photo-form {
+.add-Photo-form {
 	width: 70%;
 }
 input[type="submit"]{
@@ -381,7 +381,7 @@ hr {
 	display: flex;
 	justify-content: center;
 }
-.add-photo{
+.add-Photo-Button{
 	width: 250px;
 	padding: 10px 20px;
 	border: 1px solid #1D6154;
