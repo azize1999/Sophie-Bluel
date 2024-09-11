@@ -234,6 +234,8 @@ function toggleModal() {
   }
 }
 
+//add photo input
+document.querySelector('#file').style.display = "none"
 
 
 
