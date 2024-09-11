@@ -420,7 +420,7 @@ hr {
 /* .modal-gallery{
 	display: none;
 } */
-
+ 
 .file-section {
 	background-color:#E8F1F6;
     display: flex;
@@ -440,8 +440,18 @@ hr {
 	margin-top: 20px;
 	text-align: center;
 }
-.file-section i{
+.fa-image{
 	font-size: 67px;
 	color: #B9C5CC;
 	margin-top: 5px;
 }
+
+
+#photo-container{
+	width: 70%;
+}
+#photo-container img{
+	width: 100%;
+}
+
+
