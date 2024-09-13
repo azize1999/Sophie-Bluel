@@ -84,9 +84,18 @@ function setFilter(data) {
     const div = document.createElement("div");
     div.className = data.id;
     div.addEventListener("click" ,() => getWorks(data.id));
+    div.addEventListener("click" ,(event) => toggleFilter(event));
+    document.querySelector(".tous").addEventListener("click", (event) => toggleFilter(event));
     div.innerHTML = `${data.name}`;
     document.querySelector(".div-container").append(div);
 }
+function toggleFilter(event) {
+  const container = document.querySelector('.div-container');
+  Array.from(container.children).forEach((child) => child.classList.remove('active-filter')
+  );
+  event.target.classList.add('active-filter');
+}
+
    document.querySelector(".tous").addEventListener("click", () => getWorks()); 
 
 
@@ -97,6 +106,8 @@ const editBanner = document.createElement("div");
 editBanner.className = "edit";
 editBanner.innerHTML = '<p><a href="#modal1" class="js-modal"><i class="fa-regular fa-pen-to-square"></i> Mode édition</a></p>';
     document.body.prepend(editBanner);
+    document.querySelector('.filters').style.display = "none";
+    document.querySelector('.modal-button').style.display = "block";
 
     const login = document.querySelector(".login a");
     login.href = "#";
@@ -114,7 +125,6 @@ displayAdminMode();// Appelle la fonction pour afficher le mode administrateur
 let modal = null; // Initialise la variable modal à null
 const focesableSelector = "button,a,input,textarea"// Sélecteur pour les éléments pouvant recevoir le focus
 let focusables = []// Initialise un tableau vide pour stocker les éléments pouvant recevoir le focus
-
 const openModal = function (e) {// Fonction pour ouvrir la modal
   e.preventDefault();  // Empêche le comportement par défaut de l'événement 
   modal = document.querySelector(e.target.getAttribute('href'));  // Sélectionne la modal en utilisant l'attribut href de l'élément déclencheur
@@ -235,38 +245,94 @@ function toggleModal() {
 }
 
 //add photo input
+let img = document.createElement("img");
 document.querySelector('#file').style.display = "none";
+
 document.getElementById("file").addEventListener("change", function (event) {
+    let file = event.target.files[0]; // Déclaration de 'file' avec 'let'
 
-  const file = event.target.files[0];
-  
-  if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-  
-  const reader = new FileReader();
-  
-  reader.onload = function (e) {
-  
-  const img = document.createElement("img");
-  
-  img.src = e.target.result;
-  
-  img.alt = "Uploaded Photo";
-  
-  document.getElementById("photo-container").appendChild(img);
-  document.querySelectorAll(".picture-loaded").forEach(e => e.style.display = "none");
-  
-  } ;
-  
-  reader.readAsDataURL(file);
-  
-  } else {
-  
-  alert("Veuillez sélectionner une image au format JPG ou PNG.");
-  
-  }
-  
-  });
-  
+    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            img.src = e.target.result;
+            img.alt = "Uploaded Photo";
+            document.getElementById("photo-container").appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+        document.querySelectorAll(".picture-loaded").forEach(e => e.style.display = "none");
+    } else {
+        alert("Veuillez sélectionner une image au format JPG ou PNG.");
+    }
+});
+
+// Handle picture submit 
+
+const titleInput = document.getElementById("title");
+let titleValue = "";
+let selectedValue = "1";
+
+document.getElementById("category").addEventListener("change", function () {
+    selectedValue = this.value;
+});
+
+titleInput.addEventListener("input", function () {
+    titleValue = titleInput.value;
+    console.log("Titre actuel : ", titleValue);
+});
+
+const addpictureform = document.getElementById("picture-form");
+
+addpictureform.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    
+    const hasImage = document.querySelector("#photo-container").firstChild;
+    
+    if (hasImage && titleValue.trim()) { // Vérifiez aussi que titleValue n'est pas vide
+
+ // Créez un nouvel objet FormData
+ const formData = new FormData();
+ const fileInput = document.querySelector("#file").files[0];
+ // Ajout du fichier au FormData
+ formData.append("image", fileInput);
+ formData.append("title", titleValue);
+ formData.append("category", selectedValue);
+
+ const token = sessionStorage.getItem('authToken'); // Utilisez getItem pour récupérer le token
+
+ if (!token) {
+     console.error("Token d'authentification manquant.");
+     return;
+ }
+
+ let response = await fetch("http://localhost:5678/api/works", {
+     method: 'POST',
+     headers: {
+         Authorization: "Bearer " + token,
+     },
+     body: formData,
+ });
+
+ if (response.status !== 201) {
+     const errorText = await response.text();
+     console.error("Erreur : ", errorText);
+     const errorBox = document.createElement("div");
+     errorBox.className = "error_login";
+     errorBox.innerHTML = `Il y a eu une erreur : ${errorText}`;
+     document.querySelector("form").prepend(errorBox);
+ } else {
+     let result = await response.json();
+     console.log(result);
+     getWorks();
+ }
+
+        console.log("hasImage and titleValue is true");
+    } else {
+        console.log("veuillez remplir tous les champs");
+    }
+   
+});
 
 
 
@@ -279,3 +345,95 @@ document.getElementById("file").addEventListener("change", function (event) {
 
 
 
+
+
+
+
+// let img = document.createElement("img");
+// document.querySelector('#file').style.display = "none";
+
+// document.getElementById("file").addEventListener("change", function (event) {
+//     let file = event.target.files[0]; // Déclaration de 'file' avec 'let'
+
+//     if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+//         const reader = new FileReader();
+
+//         reader.onload = function (e) {
+//             img.src = e.target.result;
+//             img.alt = "Uploaded Photo";
+//             document.getElementById("photo-container").appendChild(img);
+//         };
+
+//         reader.readAsDataURL(file);
+//         document.querySelectorAll(".picture-loaded").forEach(e => e.style.display = "none");
+//     } else {
+//         alert("Veuillez sélectionner une image au format JPG ou PNG.");
+//     }
+// });
+
+// // Handle picture submit 
+
+// const titleInput = document.getElementById("title");
+// let titleValue = "";
+// let selectedValue = "1";
+
+// document.getElementById("category").addEventListener("change", function () {
+//     selectedValue = this.value;
+// });
+
+// titleInput.addEventListener("input", function () {
+//     titleValue = titleInput.value;
+//     console.log("Titre actuel : ", titleValue);
+// });
+
+// const addpictureform = document.getElementById("picture_form");
+
+// addpictureform.addEventListener("submit", async (event) => {
+//     event.preventDefault();
+    
+//     const hasImage = document.querySelector("#photo-container").firstChild;
+    
+//     if (hasImage && titleValue.trim()) { // Vérifiez aussi que titleValue n'est pas vide
+//         console.log("hasImage and titleValue is true");
+//     } else {
+//         console.log("hasImage and titleValue is false");
+//     }
+
+//     // Créez un nouvel objet FormData
+//     const formData = new FormData();
+
+//     // Ajout du fichier au FormData
+//     if (file) {
+//         formData.append("image", file);
+//     }
+
+//     formData.append("title", titleValue);
+//     formData.append("category", selectedValue);
+
+//     const token = sessionStorage.getItem('authToken'); // Utilisez getItem pour récupérer le token
+
+//     if (!token) {
+//         console.error("Token d'authentification manquant.");
+//         return;
+//     }
+
+//     let response = await fetch("http://localhost:5678/api/works", {
+//         method: 'POST',
+//         headers: {
+//             Authorization: "Bearer " + token,
+//         },
+//         body: formData,
+//     });
+
+//     if (response.status !== 200) {
+//         const errorText = await response.text();
+//         console.error("Erreur : ", errorText);
+//         const errorBox = document.createElement("div");
+//         errorBox.className = "error_login";
+//         errorBox.innerHTML = `Il y a eu une erreur : ${errorText}`;
+//         document.querySelector("form").prepend(errorBox);
+//     } else {
+//         let result = await response.json();
+//         console.log(result);
+//     }
+// });

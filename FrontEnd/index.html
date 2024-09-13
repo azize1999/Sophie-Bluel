@@ -39,7 +39,7 @@
 				
 		 		<h3>Ajout photo</h3>
 		<div class="form add-Photo-form">
-	      <form action="#" method="post">
+	      <form id="picture-form" action="#" method="post">
 			<div class="file-section">
 				<div id="photo-container"></div>
 
@@ -53,9 +53,9 @@
 		           <input type="text" name="title" id="title" />
 		           <label for="category">Catégorie</label>
 				   <select id="category" name="category" size="1">
-					<option value="objet">Objets</option>
-					<option value="appartements">Appartements</option>
-					<option value="hotel">Hotels & restaurants</option>
+					<option value="1">Objets</option>
+					<option value="2">Appartements</option>
+					<option value="3">Hotels & restaurants</option>
 				  </select>
 				  
 		           <hr/>
@@ -73,7 +73,7 @@
 		<ul>
 			<li><a href="#portfolio">projets</a></li>
 			<li><a href="#contact">contact</a></li>
-			<li class="login"><a href="login.html">login</a></li>  		<!-- verifier ce code !!!! --> 
+			<li class="login"><a href="login.html">login</a></li>  		 
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -93,9 +93,9 @@
 	<section id="portfolio">
 		<div class="modifier-mes-projets">
 		<h2>Mes Projets</h2>
-		<p><i class="fa-regular fa-pen-to-square"></i>modifier</p>
+		<a href="#modal1" class="modal-button js-modal"><i class="fa-regular fa-pen-to-square"></i> modifier</a>
 	</div>
-		<div class="div-container">
+		<div class="div-container filters">
 			<div class="tous active-filter">Tous</div>
 	    </div>
 		<div class="gallery">

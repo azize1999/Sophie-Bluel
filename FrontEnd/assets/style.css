@@ -157,6 +157,11 @@ li:hover {
 	background-color: #1D6154;
 	color: white;
 }
+
+.active-filter{
+	background-color: #1D6154;
+	color: white;
+}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -395,9 +400,6 @@ hr {
 	width: 100%;
 }
 
-.modal-button-container  {
-	display: ruby-text;
-}
 .add-Photo-Button{
 	width: 250px;
 	padding: 10px 20px;
@@ -406,7 +408,8 @@ hr {
 	font-family:'Syne';
 	color: white;
 	cursor: pointer;
-	background-color:#1D6154 ;
+	background-color:#1D6154;
+	margin: 0 auto;
 	margin-top: 20px;
 }
 
@@ -454,4 +457,9 @@ hr {
 	width: 100%;
 }
 
-
+.modal-button {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	display: none;
+}
