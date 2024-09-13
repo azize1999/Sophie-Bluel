@@ -329,7 +329,7 @@ addpictureform.addEventListener("submit", async (event) => {
 
         console.log("hasImage and titleValue is true");
     } else {
-        console.log("veuillez remplir tous les champs");
+      alert("veuillez remplir tous les champs !!!");
     }
    
 });
